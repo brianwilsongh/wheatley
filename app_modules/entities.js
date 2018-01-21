@@ -12,13 +12,16 @@ module.exports = {
         };
       }
     }
-  }
+  },
 
   processDateTimes: function(items) {
     for (let item in items) {
       if (item.confidence > 0.80) return {
-        text: item.value + " is the date I got"
+        text: (item.value + " is the date I got")
+      }
+      return {
+        text: "oops, need this default"
       };
-    }
+    };
   }
 }
