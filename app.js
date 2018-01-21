@@ -96,8 +96,8 @@ function handleMessage(sender_psid, received_message) {
     for (let entity in entitiesObj){
       let items = entitiesObj[entity];
       console.log("entitiesObj[entity] = ", items);
-      if (entity === "greetings") entities.processGreetings(sender_psid, items);
-      if (entity === "datetime") entities.processDateTimes(sender_psid, items);
+      if (entity === "greetings") callSendAPI(sender_psid, entities.processGreetings(items));
+      if (entity === "datetime") callSendAPI(sender_psid, entities.processDateTimes(items));
     }
   } else if (received_message.text){
     //create the payload for a basic txt message
