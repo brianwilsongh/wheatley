@@ -1,5 +1,5 @@
 module.exports = {
-  function processGreetings(items) {
+  processGreetings: function(items) {
     for (var idx = 0; idx < items.length; idx++) {
       var item = items[idx];
       if (item.confidence >= 0.85) {
@@ -14,7 +14,7 @@ module.exports = {
     }
   }
 
-  function processDateTimes(items) {
+  processDateTimes: function(items) {
     for (let item in items) {
       if (item.confidence > 0.80) return {
         text: item.value + " is the date I got"
