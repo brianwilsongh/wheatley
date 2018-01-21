@@ -12,6 +12,8 @@ const env = process.env;
 
 const PAGE_ACCESS_TOKEN = env.WHEATLEY_FB_PAGE_ACCESS_TOKEN; //big string
 const VERIFY_TOKEN = env.WHEATLEY_FB_VERIFY_TOKEN; //random string
+console.log("PAGE_ACCESS_TOKEN set as : " + PAGE_ACCESS_TOKEN);
+console.log("VERIFY_TOKEN set: " + VERIFY_TOKEN);
 
 app.set('port', (process.env.PORT || 5000)); //set to 5k if not given
 
