@@ -1,13 +1,21 @@
 {
-  "name": "chatty",
+  "name": "wheatley",
   "version": "0.0.1",
-  "description": "",
+  "description": "the stupid core",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "brian",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wilsontheory/wheatley.git"
+  },
+  "author": "wilsontheory",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wilsontheory/wheatley/issues"
+  },
+  "homepage": "https://github.com/wilsontheory/wheatley#readme",
   "dependencies": {
     "body-parser": "^1.18.2",
     "express": "^4.16.2",

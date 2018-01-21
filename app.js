@@ -5,14 +5,15 @@ const bodyParser = require('body-parser');
 const request = require('request');
 const path = require('path');
 
-const app = express();
+const entities = require('./app_modules/entities.js');
 
+const app = express();
 const env = process.env;
 
-const PAGE_ACCESS_TOKEN = env.FB_PAGE_ACCESS_TOKEN; //big string
-const VERIFY_TOKEN = env.FB_VERIFY_TOKEN; //random string
+const PAGE_ACCESS_TOKEN = env.WHEATLEY_FB_PAGE_ACCESS_TOKEN; //big string
+const VERIFY_TOKEN = env.WHEATLEY_FB_VERIFY_TOKEN; //random string
 
-app.set('port', (process.env.PORT || 5000)); //set to 5k if not given
+app.set('port', (process.env.WHEATLEY_PORT || 5000)); //set to 5k if not given
 
 //to process data
 app.use(bodyParser.urlencoded({extended: false}));
@@ -88,7 +89,6 @@ app.post('/webhook', (req, res) => {
 function handleMessage(sender_psid, received_message) {
   //psid in this handler functions are page-scoped ids
 
-  //message.nlp.entities[greeting] would give array of greeting entities
   let response;
   //check if msg contains text
   let entitiesObj = received_message.nlp.entities;
@@ -96,8 +96,8 @@ function handleMessage(sender_psid, received_message) {
     for (let entity in entitiesObj){
       let items = entitiesObj[entity];
       console.log("entitiesObj[entity] = ", items);
-      if (entity === "greetings") processGreetings(sender_psid, items);
-      if (entity === "datetime") processDateTimes(sender_psid, items);
+      if (entity === "greetings") entities.processGreetings(sender_psid, items);
+      if (entity === "datetime") entities.processDateTimes(sender_psid, items);
     }
   } else if (received_message.text){
     //create the payload for a basic txt message
@@ -141,26 +141,6 @@ function handleMessage(sender_psid, received_message) {
   }
   //sends the response message
   callSendAPI(sender_psid, response);
-}
-
-function processGreetings(sender_psid, items){
-  console.log("processGreetings.items = " + JSON.stringify(items));
-  for (var idx = 0; idx < items.length; idx++){
-    var item = items[idx];
-    console.log("processGreetings.item = " + JSON.stringify(item));
-    if (item.confidence >= 0.85) { 
-      callSendAPI(sender_psid, {text: "Why hello there!"});
-    } else {
-      console.log("greeting but not confident in it");
-      callSendAPI(sender_psid, {text: "...huh?"});
-    }
-  }
-}
-
-function processDateTimes(sender_psid, items){
-  for (let item in items){
-    if (item.confidence > 0.80) callSendAPI(sender_psid, (item.value + " is the date I got"));
-  }
 }
 
 // Handles messaging_postbacks events (when user uses a button for example to send string)
