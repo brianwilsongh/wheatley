@@ -13,7 +13,7 @@ const env = process.env;
 const PAGE_ACCESS_TOKEN = env.WHEATLEY_FB_PAGE_ACCESS_TOKEN; //big string
 const VERIFY_TOKEN = env.WHEATLEY_FB_VERIFY_TOKEN; //random string
 
-app.set('port', (process.env.WHEATLEY_PORT || 5000)); //set to 5k if not given
+app.set('port', (process.env.PORT || 5000)); //set to 5k if not given
 
 //to process data
 app.use(bodyParser.urlencoded({extended: false}));
